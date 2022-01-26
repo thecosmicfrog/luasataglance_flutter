@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/model/stop_forecast_model.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/stop_forecast_widget.dart';
 
 class StopForecastDirectionWidget extends StatelessWidget {
+  final String line;
   final String direction;
-  final int colorLuasPurple = 0xff4d3475;
 
-  const StopForecastDirectionWidget({Key? key, required this.direction})
+  const StopForecastDirectionWidget(
+      {Key? key, required this.direction, required this.line})
       : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class StopForecastDirectionWidget extends StatelessWidget {
           return SizedBox(
             width: double.infinity,
             child: Card(
-              color: Color(colorLuasPurple),
+              color: const Color(Constant.colorLuasPurple),
               elevation: 4.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -38,10 +40,15 @@ class StopForecastDirectionWidget extends StatelessWidget {
                       direction.toUpperCase(),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  StopForecastWidget(direction: direction)
+                  StopForecastWidget(
+                    direction: direction,
+                  )
                 ],
               ),
             ),

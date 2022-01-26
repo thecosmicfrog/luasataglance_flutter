@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/model/stop_forecast_model.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 
 class StopForecastWidget extends StatelessWidget {
   final String direction;
-  final int colorLuasPurple = 0xff4d3475;
   final stopForecastEntries = <Card>[];
 
   StopForecastWidget({Key? key, required this.direction}) : super(key: key);
@@ -51,7 +51,7 @@ class StopForecastWidget extends StatelessWidget {
 
           return Card(
             margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-            color: Color(colorLuasPurple),
+            color: const Color(Constant.colorLuasPurple),
             child: Column(
               children: stopForecastEntries,
             ),
@@ -81,7 +81,10 @@ class StopForecastWidget extends StatelessWidget {
             tram?.dueMinutes ?? "",
             style: const TextStyle(fontSize: 18.0),
           ),
-          Text(minOrMins ?? "")
+          Visibility(
+            child: Text(minOrMins ?? ""),
+            visible: tram?.dueMinutes == "DUE" ? false : true,
+          ),
         ]),
         tileColor: Colors.transparent,
       ),

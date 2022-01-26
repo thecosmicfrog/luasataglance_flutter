@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/bloc.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/screen/alerts_screen.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/screen/favourites_screen.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/screen/trams_screen.dart';
@@ -10,8 +11,6 @@ import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutte
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
-  final int colorLuasPurple = 0xff4d3475;
-
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context)?.bloc;
@@ -20,7 +19,7 @@ class App extends StatelessWidget {
         title: "Luas at a Glance",
         home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color(colorLuasPurple),
+            backgroundColor: const Color(Constant.colorLuasPurple),
             elevation: 0.0,
             toolbarHeight: 0.0,
           ),

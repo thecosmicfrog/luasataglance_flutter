@@ -10,15 +10,29 @@ enum NavBarItem { trams, favourites, map, alerts }
 class Bloc {
   final _luasApi = LuasApiProvider();
 
-  final _dropdownSelectedValue = BehaviorSubject<String>.seeded("Abbey Street");
-  Stream<String> get dropdownSelectedValueStream =>
-      _dropdownSelectedValue.stream;
-  Function(String) get dropdownSelectedValueSink =>
-      _dropdownSelectedValue.sink.add;
+  final _dropdownSelectedValueRedLine =
+      BehaviorSubject<String>.seeded("Select a stop..."); // TODO: Urgh...
+  Stream<String> get dropdownSelectedValueRedLineStream =>
+      _dropdownSelectedValueRedLine.stream;
+  Function(String) get dropdownSelectedValueRedLineSink =>
+      _dropdownSelectedValueRedLine.sink.add;
 
-  final _dropdownAllValues =
-      BehaviorSubject<List<String>>.seeded(Constant.stopMap.keys.toList());
-  Stream<List<String>> get dropdownAllValuesStream => _dropdownAllValues.stream;
+  final _dropdownSelectedValueGreenLine =
+      BehaviorSubject<String>.seeded("Select a stop..."); // TODO: Urgh...
+  Stream<String> get dropdownSelectedValueGreenLineStream =>
+      _dropdownSelectedValueGreenLine.stream;
+  Function(String) get dropdownSelectedValueGreenLineSink =>
+      _dropdownSelectedValueGreenLine.sink.add;
+
+  final _dropdownAllValuesRedLine = BehaviorSubject<List<String>>.seeded(
+      Constant.redLineStopMap.keys.toList());
+  Stream<List<String>> get dropdownAllValuesRedLineStream =>
+      _dropdownAllValuesRedLine.stream;
+
+  final _dropdownAllValuesGreenLine = BehaviorSubject<List<String>>.seeded(
+      Constant.greenLineStopMap.keys.toList());
+  Stream<List<String>> get dropdownAllValuesGreenLineStream =>
+      _dropdownAllValuesGreenLine.stream;
 
   final _stopForecastValue = BehaviorSubject<StopForecastModel>();
   Stream<StopForecastModel> get stopForecastValueStream =>
@@ -57,8 +71,8 @@ class Bloc {
   }
 
   dispose() {
-    _dropdownSelectedValue.close();
-    _dropdownAllValues.close();
+    _dropdownSelectedValueRedLine.close();
+    _dropdownAllValuesRedLine.close();
     _stopForecastValue.close();
     _navBarController.close();
   }

@@ -1,8 +1,14 @@
 class Constant {
   Constant._();
 
-  static const stopMap = <String, String>{
-    /* Red Line */
+  static const int colorLuasPurple = 0xff4d3475;
+  static const int colorRedLine = 0xffff4d4d;
+  static const int colorGreenLine = 0xff33ad5c;
+  static const int colorStatusOk = 0xff006600;
+  static const int colorStatusProblem = 0xffe00000;
+
+  static const redLineStopMap = <String, String>{
+    "Select a stop...": "NOT_APPLICABLE",
     "The Point": "TPT",
     "Spencer Dock": "SDK",
     "Mayor Square - NCI": "MYS",
@@ -35,8 +41,10 @@ class Constant {
     "Citywest Campus": "CIT",
     "Fortunestown": "FOR",
     "Saggart": "SAG",
+  };
 
-    /* Green Line */
+  static const greenLineStopMap = <String, String>{
+    "Select a stop...": "NOT_APPLICABLE",
     "Broombridge": "BRO",
     "Cabra": "CAB",
     "Phibsborough": "PHI",
