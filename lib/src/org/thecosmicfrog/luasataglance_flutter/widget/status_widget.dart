@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/model/stop_forecast_model.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 
 //
 import 'dart:convert';
 //
 
-class MessageWidget extends StatelessWidget {
-  const MessageWidget({Key? key}) : super(key: key);
+class StatusWidget extends StatelessWidget {
+  const StatusWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +20,14 @@ class MessageWidget extends StatelessWidget {
             (BuildContext context, AsyncSnapshot<StopForecastModel> snapshot) {
           if (!snapshot.hasData) {
             print("Nothing here");
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
 
           final String? stopForecastStatusMessage = snapshot.data?.message;
 
-          print(stopForecastStatusMessage);
-          print(Utf8Decoder()
-              .convert(stopForecastStatusMessage?.codeUnits as List<int>));
+          // print(stopForecastStatusMessage);
+          // print(Utf8Decoder()
+          //     .convert(stopForecastStatusMessage?.codeUnits as List<int>));
 
           return ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
@@ -38,15 +39,20 @@ class MessageWidget extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    color: Colors.green,
+                    color: const Color(Constant.colorStatusOk),
                     child: const Text(
                       "Status",
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  Text(stopForecastStatusMessage ??
-                      "No status message available")
+                  Text(
+                    stopForecastStatusMessage ?? "No status message available",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
                 ],
               ),
             ),
