@@ -24,6 +24,30 @@ class StopForecastWidget extends StatelessWidget {
           final StopForecastModel? stopForecast = snapshot.data;
 
           if (stopForecast?.trams != null) {
+
+            /* Check if any trams are running in this direction. */
+            bool? hasTramsInThisDirection =
+                stopForecast?.trams?.any((tram) => tram.direction == direction);
+
+            /*
+             * If no trams are running in this direction, display a
+             * "No trams forecast..." card.
+             */
+            if (!hasTramsInThisDirection!) {
+              stopForecastEntries.add(
+                _buildStopForecastCard(
+                  tram: null,
+                  canScheduleNotification: false,
+                  minOrMins: null,
+                ),
+              );
+            }
+
+            /*
+             * Add cards for all trams in this direction. This might be zero, in
+             * which case only the "No trams forecast..." card (created above)
+             * will be displayed.
+             */
             for (Tram tram in stopForecast?.trams ?? <Tram>[]) {
               if (tram.direction == direction) {
                 String minOrMins;
@@ -41,12 +65,13 @@ class StopForecastWidget extends StatelessWidget {
 
                 stopForecastEntries.add(
                   _buildStopForecastCard(
-                      tram, canScheduleNotification, minOrMins),
+                    tram: tram,
+                    canScheduleNotification: canScheduleNotification,
+                    minOrMins: minOrMins,
+                  ),
                 );
               }
             }
-          } else {
-            stopForecastEntries.add(_buildStopForecastCard(null, false, null));
           }
 
           return Card(
@@ -60,7 +85,7 @@ class StopForecastWidget extends StatelessWidget {
   }
 
   Card _buildStopForecastCard(
-      Tram? tram, bool canScheduleNotification, String? minOrMins) {
+      {Tram? tram, required bool canScheduleNotification, String? minOrMins}) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12.0),
       shape: RoundedRectangleBorder(
