@@ -65,7 +65,7 @@ class Bloc {
     }
   }
 
-  fetchStopForecast(String? stopId) async {
+  Future<void> fetchStopForecast(String? stopId) async {
     final stopForecast = await _luasApi.fetchStopForecast(stopId);
     _stopForecastValue.sink.add(stopForecast);
   }

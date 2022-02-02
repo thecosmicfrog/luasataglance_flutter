@@ -43,70 +43,63 @@ class DropdownSelectorWidget extends StatelessWidget {
       builder: (BuildContext context,
           AsyncSnapshot<String> dropdownSelectedValueSnapshot) {
         if (!dropdownSelectedValueSnapshot.hasData) {
-          print("dropdownSelectedValueSnapshot has no data");
           return Container();
         }
-
-        print("dropdownSelectedValueSnapshot has data: "
-            "${dropdownSelectedValueSnapshot.data}");
 
         return StreamBuilder(
           stream: dropdownAllValuesStream,
           builder: (BuildContext context,
               AsyncSnapshot<List<String>> dropdownAllValuesSnapshot) {
             if (!dropdownAllValuesSnapshot.hasData) {
-              print("dropdownAllValuesSnapshot has no data");
-            } else {
-              // print("dropdownAllValuesSnapshot has data: "
-              //     "${dropdownAllValuesSnapshot.data.toString()}");
+              return Container();
+            }
 
-              return SizedBox(
-                width: double.infinity,
-                child: Card(
-                  elevation: 4.0,
-                  margin: const EdgeInsets.only(
-                    left: 4.0,
-                    right: 4.0,
-                    top: 16.0,
-                    bottom: 16.0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: SizedBox(
-                      height: 60.0,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        borderRadius: BorderRadius.circular(12),
-                        value: dropdownSelectedValueSnapshot.data,
-                        items: dropdownAllValuesSnapshot.data
-                            ?.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Container(
-                              padding: const EdgeInsets.only(left: 12.0),
-                              child: Text(
-                                value,
-                                style: const TextStyle(fontSize: 25.0),
-                              ),
+            return SizedBox(
+              width: double.infinity,
+              child: Card(
+                elevation: 4.0,
+                margin: const EdgeInsets.only(
+                  left: 4.0,
+                  right: 4.0,
+                  top: 16.0,
+                  bottom: 16.0,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: SizedBox(
+                    height: 60.0,
+                    child: DropdownButton(
+                      isExpanded: true,
+                      itemHeight: 56.0,
+                      iconSize: 38.0,
+                      iconEnabledColor: const Color(Constant.colorLuasPurple),
+                      borderRadius: BorderRadius.circular(12),
+                      value: dropdownSelectedValueSnapshot.data,
+                      items: dropdownAllValuesSnapshot.data
+                          ?.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              value,
+                              style: const TextStyle(fontSize: 25.0),
                             ),
-                          );
-                        }).toList(),
-                        onChanged: ((String? newValue) async {
-                          final stopCode = stopMap[newValue];
-                          final stopForecast =
-                              bloc?.fetchStopForecast(stopCode);
-                          dropdownSelectedValueSink!(newValue!);
-                        }),
-                      ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: ((String? newValue) async {
+                        final stopCode = stopMap[newValue];
+                        final stopForecast = bloc?.fetchStopForecast(stopCode);
+                        dropdownSelectedValueSink!(newValue!);
+                      }),
                     ),
                   ),
                 ),
-              );
-            }
-
-            return Container();
+              ),
+            );
           },
         );
       },

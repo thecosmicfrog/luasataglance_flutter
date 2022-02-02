@@ -15,48 +15,47 @@ class StatusWidget extends StatelessWidget {
     final bloc = Provider.of(context)?.bloc;
 
     return StreamBuilder(
-        stream: bloc?.stopForecastValueStream,
-        builder:
-            (BuildContext context, AsyncSnapshot<StopForecastModel> snapshot) {
-          if (!snapshot.hasData) {
-            print("Nothing here");
-            return const CircularProgressIndicator();
-          }
+      stream: bloc?.stopForecastValueStream,
+      builder:
+          (BuildContext context, AsyncSnapshot<StopForecastModel> snapshot) {
+        if (!snapshot.hasData) {
+          return const CircularProgressIndicator();
+        }
 
-          final String? stopForecastStatusMessage = snapshot.data?.message;
+        final String? stopForecastStatusMessage = snapshot.data?.message;
 
-          // print(stopForecastStatusMessage);
-          // print(Utf8Decoder()
-          //     .convert(stopForecastStatusMessage?.codeUnits as List<int>));
+        // print(stopForecastStatusMessage);
+        // print(Utf8Decoder()
+        //     .convert(stopForecastStatusMessage?.codeUnits as List<int>));
 
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
-            child: Card(
-              elevation: 4.0,
-              margin:
-                  const EdgeInsets.only(left: 4.0, right: 4.0, bottom: 12.0),
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    color: const Color(Constant.colorStatusOk),
-                    child: const Text(
-                      "Status",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Card(
+            elevation: 4.0,
+            margin: const EdgeInsets.only(left: 4.0, right: 4.0, bottom: 12.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  color: const Color(Constant.colorStatusOk),
+                  child: const Text(
+                    "Status",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    stopForecastStatusMessage ?? "No status message available",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                ],
-              ),
+                ),
+                Text(
+                  stopForecastStatusMessage ?? "No status message available",
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

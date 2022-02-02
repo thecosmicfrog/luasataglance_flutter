@@ -23,54 +23,51 @@ class StopForecastWidget extends StatelessWidget {
 
           final StopForecastModel? stopForecast = snapshot.data;
 
-          if (stopForecast?.trams != null) {
+          /* Check if any trams are running in this direction. */
+          bool hasTramsInThisDirection =
+              stopForecast?.trams?.any((tram) => tram.direction == direction) ??
+                  false;
 
-            /* Check if any trams are running in this direction. */
-            bool? hasTramsInThisDirection =
-                stopForecast?.trams?.any((tram) => tram.direction == direction);
+          /*
+           * If no trams are running in this direction, display a
+           * "No trams forecast..." card.
+           */
+          if (!hasTramsInThisDirection) {
+            stopForecastEntries.add(
+              _buildStopForecastCard(
+                tram: null,
+                canScheduleNotification: false,
+                minOrMins: null,
+              ),
+            );
+          }
 
-            /*
-             * If no trams are running in this direction, display a
-             * "No trams forecast..." card.
-             */
-            if (!hasTramsInThisDirection!) {
+          /*
+           * Add cards for all trams in this direction. This might be zero, in
+           * which case only the "No trams forecast..." card (created above)
+           * will be displayed.
+           */
+          for (Tram tram in stopForecast?.trams ?? <Tram>[]) {
+            if (tram.direction == direction) {
+              String minOrMins;
+              if (tram.dueMinutes == "DUE" || tram.dueMinutes == "") {
+                minOrMins = "";
+              } else if (tram.dueMinutes == "1") {
+                minOrMins = "min";
+              } else {
+                minOrMins = "mins";
+              }
+
+              final bool canScheduleNotification = (tram.dueMinutes != "DUE" &&
+                  int.parse(tram.dueMinutes ?? "0") > 3);
+
               stopForecastEntries.add(
                 _buildStopForecastCard(
-                  tram: null,
-                  canScheduleNotification: false,
-                  minOrMins: null,
+                  tram: tram,
+                  canScheduleNotification: canScheduleNotification,
+                  minOrMins: minOrMins,
                 ),
               );
-            }
-
-            /*
-             * Add cards for all trams in this direction. This might be zero, in
-             * which case only the "No trams forecast..." card (created above)
-             * will be displayed.
-             */
-            for (Tram tram in stopForecast?.trams ?? <Tram>[]) {
-              if (tram.direction == direction) {
-                String minOrMins;
-                if (tram.dueMinutes == "DUE" || tram.dueMinutes == "") {
-                  minOrMins = "";
-                } else if (tram.dueMinutes == "1") {
-                  minOrMins = "min";
-                } else {
-                  minOrMins = "mins";
-                }
-
-                final bool canScheduleNotification =
-                    (tram.dueMinutes != "DUE" &&
-                        int.parse(tram.dueMinutes ?? "0") > 3);
-
-                stopForecastEntries.add(
-                  _buildStopForecastCard(
-                    tram: tram,
-                    canScheduleNotification: canScheduleNotification,
-                    minOrMins: minOrMins,
-                  ),
-                );
-              }
             }
           }
 
