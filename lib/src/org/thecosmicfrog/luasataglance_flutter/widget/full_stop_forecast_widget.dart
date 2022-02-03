@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/bloc.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
-import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/stop_forecast_direction_widget.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/stop_forecast_direction_container_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
-class CombinedStopForecastWidget extends StatelessWidget {
+class FullStopForecastWidget extends StatelessWidget {
   final String line;
   final _controller = ScrollController();
 
-  CombinedStopForecastWidget({Key? key, required this.line}) : super(key: key);
+  FullStopForecastWidget({Key? key, required this.line}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,14 @@ class CombinedStopForecastWidget extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 64.0),
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              StopForecastDirectionWidget(line: line, direction: "Inbound"),
-              StopForecastDirectionWidget(line: line, direction: "Outbound"),
+              StopForecastDirectionContainerWidget(
+                line: line,
+                direction: "Inbound",
+              ),
+              StopForecastDirectionContainerWidget(
+                line: line,
+                direction: "Outbound",
+              ),
             ],
           ),
         ),

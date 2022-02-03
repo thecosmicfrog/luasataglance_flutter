@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/model/stop_forecast_model.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
-import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/stop_forecast_widget.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/stop_forecast_entries_widget.dart';
 
-class StopForecastDirectionWidget extends StatelessWidget {
+class StopForecastDirectionContainerWidget extends StatelessWidget {
   final String line;
   final String direction;
 
-  const StopForecastDirectionWidget(
+  const StopForecastDirectionContainerWidget(
       {Key? key, required this.direction, required this.line})
       : super(key: key);
 
@@ -46,7 +46,7 @@ class StopForecastDirectionWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  StopForecastWidget(
+                  StopForecastEntriesWidget(
                     direction: direction,
                   )
                 ],

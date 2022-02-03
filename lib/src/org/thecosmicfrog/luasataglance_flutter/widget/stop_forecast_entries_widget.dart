@@ -3,11 +3,12 @@ import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutte
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/model/stop_forecast_model.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 
-class StopForecastWidget extends StatelessWidget {
+class StopForecastEntriesWidget extends StatelessWidget {
   final String direction;
   final stopForecastEntries = <Card>[];
 
-  StopForecastWidget({Key? key, required this.direction}) : super(key: key);
+  StopForecastEntriesWidget({Key? key, required this.direction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

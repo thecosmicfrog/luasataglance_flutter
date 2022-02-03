@@ -4,15 +4,13 @@ import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutte
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/dropdown_selector_widget.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/status_widget.dart';
-import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/combined_stop_forecast_widget.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/widget/full_stop_forecast_widget.dart';
 
 class TramsScreen extends StatefulWidget {
   const TramsScreen({Key? key}) : super(key: key);
 
   @override
-  createState() {
-    return TramsScreenState();
-  }
+  createState() => TramsScreenState();
 }
 
 class TramsScreenState extends State<TramsScreen>
@@ -72,7 +70,7 @@ class TramsScreenState extends State<TramsScreen>
                   children: [
                     DropdownSelectorWidget(line: tab.text!),
                     const StatusWidget(),
-                    CombinedStopForecastWidget(line: tab.text!),
+                    FullStopForecastWidget(line: tab.text!),
                   ],
                 ),
               );
