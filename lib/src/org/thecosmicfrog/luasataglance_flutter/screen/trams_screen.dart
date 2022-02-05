@@ -81,6 +81,7 @@ class TramsScreenState extends State<TramsScreen>
     );
   }
 
+  /// When tab is changed, load a new stop forecast.
   void onTabChanged(int tabIndex, Bloc? bloc) {
     switch (tabIndex) {
       case redLineTabIndex:

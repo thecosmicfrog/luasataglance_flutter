@@ -8,12 +8,14 @@ String? stopForecastModelToJson(StopForecastModel data) =>
 
 class StopForecastModel {
   StopForecastModel({
+    this.clear,
     this.created,
     this.message,
     this.status,
     this.trams,
   });
 
+  final bool? clear;
   final DateTime? created;
   final String? message;
   final Status? status;

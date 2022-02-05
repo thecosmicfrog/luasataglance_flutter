@@ -66,6 +66,12 @@ class Bloc {
   }
 
   Future<void> fetchStopForecast(String? stopId) async {
+    /*
+     * Before fetching a new stop forecast, clear the existing stop forecast by
+     * sending a special "clear" model to the stream.
+     */
+    _stopForecastValue.sink.add(StopForecastModel(clear: true));
+
     final stopForecast = await _luasApi.fetchStopForecast(stopId);
     _stopForecastValue.sink.add(stopForecast);
   }

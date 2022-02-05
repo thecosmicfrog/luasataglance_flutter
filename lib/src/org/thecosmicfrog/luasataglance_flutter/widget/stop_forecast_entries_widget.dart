@@ -24,23 +24,33 @@ class StopForecastEntriesWidget extends StatelessWidget {
 
           final StopForecastModel? stopForecast = snapshot.data;
 
-          /* Check if any trams are running in this direction. */
-          bool hasTramsInThisDirection =
-              stopForecast?.trams?.any((tram) => tram.direction == direction) ??
-                  false;
-
           /*
+           * If we receive the magic "clear" model, add some placeholder cards
+           * in place of a real stop forecast.
+           */
+          bool shouldClear = stopForecast?.clear ?? false;
+          if (shouldClear) {
+            for (int i = 0; i < 3; i++) {
+              stopForecastEntries
+                  .add(_buildStopForecastCard(isLoadingPlaceholder: true));
+            }
+          } else {
+            /* Check if any trams are running in this direction. */
+            bool hasTramsInThisDirection = stopForecast?.trams
+                    ?.any((tram) => tram.direction == direction) ??
+                false;
+
+            /*
            * If no trams are running in this direction, display a
            * "No trams forecast..." card.
            */
-          if (!hasTramsInThisDirection) {
-            stopForecastEntries.add(
-              _buildStopForecastCard(
-                tram: null,
-                canScheduleNotification: false,
-                minOrMins: null,
-              ),
-            );
+            if (!hasTramsInThisDirection) {
+              stopForecastEntries.add(
+                _buildStopForecastCard(
+                  canScheduleNotification: false,
+                ),
+              );
+            }
           }
 
           /*
@@ -83,34 +93,48 @@ class StopForecastEntriesWidget extends StatelessWidget {
   }
 
   Card _buildStopForecastCard(
-      {Tram? tram, required bool canScheduleNotification, String? minOrMins}) {
+      {Tram? tram,
+      bool canScheduleNotification = false,
+      String? minOrMins,
+      bool isLoadingPlaceholder = false}) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
-        title: Text(
-          tram?.destination ?? "No trams forecast",
-          style: tram == null
-              ? const TextStyle(fontWeight: FontWeight.bold)
-              : const TextStyle(fontWeight: FontWeight.normal),
-        ),
+        title: isLoadingPlaceholder
+            ? _buildLoadingPlaceholder()
+            : Text(
+                tram?.destination ?? "No trams forecast",
+                style: tram == null
+                    ? const TextStyle(fontWeight: FontWeight.bold)
+                    : const TextStyle(fontWeight: FontWeight.normal),
+              ),
         subtitle:
             canScheduleNotification ? const Text("Tap to set reminder") : null,
-        trailing:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            tram?.dueMinutes ?? "",
-            style: const TextStyle(fontSize: 18.0),
-          ),
-          Visibility(
-            child: Text(minOrMins ?? ""),
-            visible: tram?.dueMinutes == "DUE" ? false : true,
-          ),
-        ]),
+        trailing: isLoadingPlaceholder
+            ? null
+            : Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text(
+                  tram?.dueMinutes ?? "",
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+                Visibility(
+                  child: Text(minOrMins ?? ""),
+                  visible: tram?.dueMinutes == "DUE" ? false : true,
+                ),
+              ]),
         tileColor: Colors.transparent,
       ),
+    );
+  }
+
+  _buildLoadingPlaceholder() {
+    return Container(
+      color: Colors.grey.shade300,
+      height: 24.0,
+      width: double.infinity,
     );
   }
 }

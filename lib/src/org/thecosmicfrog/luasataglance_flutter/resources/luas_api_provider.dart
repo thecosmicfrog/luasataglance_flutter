@@ -10,7 +10,8 @@ class LuasApiProvider {
   Future<StopForecastModel> fetchStopForecast(String? stopId) async {
     final response = await http.get(Uri.parse(
         "https://api.thecosmicfrog.org/cgi-bin/luas-api.php?ver=3&action=times&station=$stopId"));
-
+    // final response = await http.get(Uri.parse(
+    //     "https://api.thecosmicfrog.org/stag/cgi-bin/luas-api.php?ver=3&action=times&station=MOCK"));
     if (response.statusCode == 200) {
       return StopForecastModel.fromJson(jsonDecode(response.body));
     } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
+import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/model/stop_forecast_model.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/resources/constant.dart';
 
 class DropdownSelectorWidget extends StatelessWidget {
@@ -35,6 +36,7 @@ class DropdownSelectorWidget extends StatelessWidget {
         break;
 
       default:
+        // TODO: Proper exception handling.
         print("Something has gone terribly wrong.");
     }
 
@@ -44,6 +46,16 @@ class DropdownSelectorWidget extends StatelessWidget {
           AsyncSnapshot<String> dropdownSelectedValueSnapshot) {
         if (!dropdownSelectedValueSnapshot.hasData) {
           return Container();
+        }
+
+        final String? dropdownSelectedStop = dropdownSelectedValueSnapshot.data;
+
+        /*
+         * If the dropdown value is "Select a stop...", just clear the stop
+         * forecast to avoid any confusion.
+         */
+        if (dropdownSelectedStop == "Select a stop...") {
+          bloc?.stopForecastValueSink(StopForecastModel(clear: true));
         }
 
         return StreamBuilder(
@@ -76,13 +88,13 @@ class DropdownSelectorWidget extends StatelessWidget {
                       iconSize: 38.0,
                       iconEnabledColor: const Color(Constant.colorLuasPurple),
                       borderRadius: BorderRadius.circular(12),
-                      value: dropdownSelectedValueSnapshot.data,
+                      value: dropdownSelectedStop,
                       items: dropdownAllValuesSnapshot.data
                           ?.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Container(
-                            padding: const EdgeInsets.only(left: 12.0),
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               value,
                               style: const TextStyle(fontSize: 25.0),

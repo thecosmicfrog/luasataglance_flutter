@@ -19,7 +19,7 @@ class StatusWidget extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<StopForecastModel> snapshot) {
         if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
+          return Container();
         }
 
         final String? stopForecastStatusMessage = snapshot.data?.message;
@@ -47,9 +47,12 @@ class StatusWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
-                  stopForecastStatusMessage ?? "No status message available",
-                  style: const TextStyle(fontSize: 16.0),
+                Container(
+                  padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                  child: Text(
+                    stopForecastStatusMessage ?? "Retrieving Luas status",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
                 ),
               ],
             ),
