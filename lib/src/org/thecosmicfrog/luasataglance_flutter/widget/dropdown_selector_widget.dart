@@ -82,31 +82,33 @@ class DropdownSelectorWidget extends StatelessWidget {
                 child: DropdownButtonHideUnderline(
                   child: SizedBox(
                     height: 60.0,
-                    child: DropdownButton(
-                      isExpanded: true,
-                      itemHeight: 56.0,
-                      iconSize: 38.0,
-                      iconEnabledColor: const Color(Constant.colorLuasPurple),
-                      borderRadius: BorderRadius.circular(12),
-                      value: dropdownSelectedStop,
-                      items: dropdownAllValuesSnapshot.data
-                          ?.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 20.0),
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButton(
+                        isExpanded: true,
+                        itemHeight: 56.0,
+                        iconSize: 38.0,
+                        iconEnabledColor: const Color(Constant.colorLuasPurple),
+                        menuMaxHeight: 500.0,
+                        borderRadius: BorderRadius.circular(12),
+                        value: dropdownSelectedStop,
+                        items: dropdownAllValuesSnapshot.data
+                            ?.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
                             child: Text(
                               value,
                               style: const TextStyle(fontSize: 25.0),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: ((String? newValue) async {
-                        final stopCode = stopMap[newValue];
-                        final stopForecast = bloc?.fetchStopForecast(stopCode);
-                        dropdownSelectedValueSink!(newValue!);
-                      }),
+                          );
+                        }).toList(),
+                        onChanged: ((String? newValue) async {
+                          final stopCode = stopMap[newValue];
+                          final stopForecast =
+                              bloc?.fetchStopForecast(stopCode);
+                          dropdownSelectedValueSink!(newValue!);
+                        }),
+                      ),
                     ),
                   ),
                 ),
