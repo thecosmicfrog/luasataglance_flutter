@@ -1,6 +1,8 @@
 class Constant {
   Constant._();
 
+  static const String redLine = "Red Line";
+  static const String greenLine = "Green Line";
   static const int colorLuasPurple = 0xff4d3475;
   static const int colorRedLine = 0xffff4d4d;
   static const int colorGreenLine = 0xff33ad5c;

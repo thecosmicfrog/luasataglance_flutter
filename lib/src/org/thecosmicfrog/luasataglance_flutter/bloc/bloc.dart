@@ -40,6 +40,11 @@ class Bloc {
   Function(StopForecastModel) get stopForecastValueSink =>
       _stopForecastValue.sink.add;
 
+  final _currentlySelectedTab = BehaviorSubject<String>();
+  Stream<String> get currentlySelectedTabStream => _currentlySelectedTab.stream;
+  Function(String) get currentlySelectedTabSink =>
+      _currentlySelectedTab.sink.add;
+
   final StreamController<NavBarItem> _navBarController =
       StreamController<NavBarItem>.broadcast();
   Stream<NavBarItem> get itemStream => _navBarController.stream;
