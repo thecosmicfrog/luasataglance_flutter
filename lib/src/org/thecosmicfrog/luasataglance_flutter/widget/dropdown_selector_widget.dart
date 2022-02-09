@@ -66,14 +66,15 @@ class DropdownSelectorWidget extends StatelessWidget {
               return Container();
             }
 
-            return SizedBox(
+            return Container(
               width: double.infinity,
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
               child: Card(
                 elevation: 4.0,
                 margin: const EdgeInsets.only(
                   left: 4.0,
                   right: 4.0,
-                  top: 16.0,
+                  top: 10.0,
                   bottom: 16.0,
                 ),
                 shape: RoundedRectangleBorder(

@@ -4,10 +4,12 @@ class Constant {
   static const String redLine = "Red Line";
   static const String greenLine = "Green Line";
   static const int colorLuasPurple = 0xff4d3475;
+  static const int colorLuasPurpleFaded = 0xffa394c1;
   static const int colorRedLine = 0xffff4d4d;
   static const int colorGreenLine = 0xff33ad5c;
   static const int colorStatusOk = 0xff006600;
   static const int colorStatusProblem = 0xffe00000;
+  static const int colorSlightGrey = 0xffc3c3c3;
 
   static const redLineStopMap = <String, String>{
     "Select a stop...": "NOT_APPLICABLE",

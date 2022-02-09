@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  fading_edge_scrollview: 2.0.1
   http: 0.13.4
   rxdart: 0.27.3
 

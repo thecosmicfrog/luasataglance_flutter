@@ -41,9 +41,9 @@ class StopForecastEntriesWidget extends StatelessWidget {
                 false;
 
             /*
-           * If no trams are running in this direction, display a
-           * "No trams forecast..." card.
-           */
+             * If no trams are running in this direction, display a
+             * "No trams forecast..." card.
+             */
             if (!hasTramsInThisDirection) {
               stopForecastEntries.add(
                 _buildStopForecastCard(
@@ -115,16 +115,19 @@ class StopForecastEntriesWidget extends StatelessWidget {
             canScheduleNotification ? const Text("Tap to set reminder") : null,
         trailing: isLoadingPlaceholder
             ? null
-            : Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(
-                  tram?.dueMinutes ?? "",
-                  style: const TextStyle(fontSize: 18.0),
-                ),
-                Visibility(
-                  child: Text(minOrMins ?? ""),
-                  visible: tram?.dueMinutes == "DUE" ? false : true,
-                ),
-              ]),
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    tram?.dueMinutes ?? "",
+                    style: const TextStyle(fontSize: 18.0),
+                  ),
+                  Visibility(
+                    child: Text(minOrMins ?? ""),
+                    visible: tram?.dueMinutes == "DUE" ? false : true,
+                  ),
+                ],
+              ),
         tileColor: Colors.transparent,
       ),
     );

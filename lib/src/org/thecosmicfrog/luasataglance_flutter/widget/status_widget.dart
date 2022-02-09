@@ -28,33 +28,40 @@ class StatusWidget extends StatelessWidget {
         // print(Utf8Decoder()
         //     .convert(stopForecastStatusMessage?.codeUnits as List<int>));
 
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Card(
-            elevation: 4.0,
-            margin: const EdgeInsets.only(left: 4.0, right: 4.0, bottom: 12.0),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  color: const Color(Constant.colorStatusOk),
-                  child: const Text(
-                    "Status",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+        return Container(
+          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Card(
+              elevation: 4.0,
+              margin: const EdgeInsets.only(
+                left: 4.0,
+                right: 4.0,
+                bottom: 12.0,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    color: const Color(Constant.colorStatusOk),
+                    child: const Text(
+                      "Status",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                  child: Text(
-                    stopForecastStatusMessage ?? "Retrieving Luas status",
-                    style: const TextStyle(fontSize: 16.0),
+                  Container(
+                    padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                    child: Text(
+                      stopForecastStatusMessage ?? "Retrieving Luas status",
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

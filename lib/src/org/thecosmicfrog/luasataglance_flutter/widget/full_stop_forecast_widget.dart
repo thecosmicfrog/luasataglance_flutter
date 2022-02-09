@@ -1,4 +1,3 @@
-import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/bloc.dart';
 import 'package:luasataglance_flutter/src/org/thecosmicfrog/luasataglance_flutter/bloc/provider.dart';
@@ -8,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 class FullStopForecastWidget extends StatelessWidget {
   final String line;
-  final _controller = ScrollController();
+  final _scrollController = ScrollController();
 
   FullStopForecastWidget({Key? key, required this.line}) : super(key: key);
 
@@ -17,32 +16,37 @@ class FullStopForecastWidget extends StatelessWidget {
     final Bloc? bloc = Provider.of(context)?.bloc;
 
     return Expanded(
-      child: RefreshIndicator(
-        color: line == "RED LINE"
-            ? const Color(Constant.colorRedLine)
-            : const Color(Constant.colorGreenLine),
-        child: FadingEdgeScrollView.fromScrollView(
-          gradientFractionOnStart: 0.2,
-          gradientFractionOnEnd: 0.2,
-          child: ListView(
-            controller: _controller,
-            padding: const EdgeInsets.only(bottom: 64.0),
-            physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              StopForecastDirectionContainerWidget(
-                line: line,
-                direction: "Inbound",
-              ),
-              StopForecastDirectionContainerWidget(
-                line: line,
-                direction: "Outbound",
-              ),
-            ],
+      child: Container(
+        padding: const EdgeInsets.only(right: 6.0),
+        child: RefreshIndicator(
+          color: line == Constant.redLine.toUpperCase()
+              ? const Color(Constant.colorRedLine)
+              : const Color(Constant.colorGreenLine),
+          child: RawScrollbar(
+            controller: _scrollController,
+            thumbColor: const Color(Constant.colorSlightGrey),
+            radius: const Radius.circular(20.0),
+            child: ListView(
+              controller: _scrollController,
+              padding:
+                  const EdgeInsets.only(left: 12.0, right: 6.0),
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                StopForecastDirectionContainerWidget(
+                  line: line,
+                  direction: "Inbound",
+                ),
+                StopForecastDirectionContainerWidget(
+                  line: line,
+                  direction: "Outbound",
+                ),
+              ],
+            ),
           ),
+          onRefresh: () async {
+            return await refresh(bloc);
+          },
         ),
-        onRefresh: () async {
-          return await refresh(bloc);
-        },
       ),
     );
   }
